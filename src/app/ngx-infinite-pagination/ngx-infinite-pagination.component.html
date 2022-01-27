@@ -1,0 +1,32 @@
+<ng-container *ngIf="paginate as data">
+  <ng-container *ngIf="data.state === 'ready' || data.state === 'loading'">
+    <ng-content></ng-content>
+  </ng-container>
+
+  <ng-container *ngIf="data.state === 'ready' && data.data.data.length === 0">
+    <ng-content select="[empty]"></ng-content>
+  </ng-container>
+
+  <ng-container *ngIf="data.state === 'loading'">
+    <ng-content select="[loading]"></ng-content>
+  </ng-container>
+
+  <div #fetchNextTrigger style="position: relative">
+    <button (click)="fetchNext.emit()" style="position: absolute">
+      FetchNext
+    </button>
+  </div>
+
+  <ng-container
+    *ngIf="
+      data.state === 'ready' &&
+      data.data?.data?.length === data.data?.total_pages
+    "
+  >
+    <ng-content select="[loadedAll]"></ng-content>
+  </ng-container>
+
+  <ng-container *ngIf="data.state === 'error'">
+    <ng-content select="[error]"></ng-content>
+  </ng-container>
+</ng-container>

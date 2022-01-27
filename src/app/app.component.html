@@ -1,0 +1,19 @@
+<ngx-infinite-pagination
+  *paginate="posts$; let posts; let err = error; let data = data"
+  [data]="data"
+  (fetchNext)="fetchNext()"
+>
+  <app-card
+    *ngFor="let post of posts"
+    [title]="post.title"
+    [content]="post.content"
+  ></app-card>
+  <ng-container loading>
+    <app-card-placeholder
+      *ngFor="let i of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]"
+    ></app-card-placeholder>
+  </ng-container>
+  <ng-container loadedAll> Loaded all </ng-container>
+  <ng-container error> Error </ng-container>
+  <ng-container empty> Empty </ng-container>
+</ngx-infinite-pagination>
